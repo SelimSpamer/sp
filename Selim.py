@@ -416,7 +416,8 @@ def pilih_super():
 																	cek.write(user+"|"+pass7+"\n")
 																	cek.close()
 																	cekpoint.append(user+pass7)
-														
+	except:
+		pass												
 		
         p = ThreadPool(30)
 	p.map(main, id) 
