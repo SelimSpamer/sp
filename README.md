@@ -1,5 +1,4 @@
 chmod+x *
 python2 Selim.py
-USER UI☞ selim
-PASS☞ selim
+user & pass set
 Log in New fresh account 
