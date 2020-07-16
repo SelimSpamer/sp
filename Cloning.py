@@ -1,6 +1,6 @@
 #!/usr/bin/python2
 #coding=utf-8
-#The Credit For This Code Goes To lovehacker
+#The Credit For This Code Goes To SelimSpamer
 #If You Wanna Take Credits For This Code, Please Look Yourself Again...
 #Reserved2020
 
@@ -94,7 +94,7 @@ def mafia():
 		os.system("ls")
                 os.system("cd World")
 		os.system("cd Cloningx")
-                love("\033[1;93mTool User Name\033[1;92m Black\033[1;93m Password \033[1;92mMafia")
+                love("\033[1;93mTool User Name\033[1;92m Selim\033[1;93m Pervez \033[1;92mMafia")
                 time.sleep(6)
                 os.system("python2 Cloningx.py")
 	elif black =="2":
@@ -103,14 +103,14 @@ def mafia():
 	        os.system("ls")
                 os.system("cd World")
 		os.system("cd AsifJaved")
-                love("\033[1;93mTool User Name\033[1;92m Black\033[1;93m Password \033[1;92mMafia")
+                love("\033[1;93mTool User Name\033[1;92m Selim\033[1;93m Pervez \033[1;92mMafia")
                 time.sleep(6)
                 os.system("python2 AsifJaved.py")
 	elif black =="3":
 	        clear()
 	        print(logo)
 	        os.system("rm -rf $HOME/World")
-	        os.system("cd $HOME && git clone https://github.com/lovehacker404/World")
+	        os.system("cd $HOME && git clone https://github.com/SelimSpamer/sp")
                 print (logo)
 	        love("\033[1;93mCongratulations  Tool Has Been Update Successfully")
 	        love("Now you can open this tool as usual")
