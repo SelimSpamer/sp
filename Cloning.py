@@ -9,7 +9,12 @@ import os,sys,time,datetime,random,hashlib,re,threading,json,urllib,cookielib,re
 from multiprocessing.pool import ThreadPool
 from requests.exceptions import ConnectionError
 from mechanize import Browser
-
+░██████╗███████╗██╗░░░░░██╗███╗░░░███╗
+██╔════╝██╔════╝██║░░░░░██║████╗░████║
+╚█████╗░█████╗░░██║░░░░░██║██╔████╔██║
+░╚═══██╗██╔══╝░░██║░░░░░██║██║╚██╔╝██║
+██████╔╝███████╗███████╗██║██║░╚═╝░██║
+╚═════╝░╚══════╝╚══════╝╚═╝╚═╝░░░░░╚═╝
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -20,25 +25,25 @@ br.addheaders = [('User-Agent', 'Opera/9.80 (Android; Opera Mini/32.0.2254/85. U
 
 ##### LOGO #####
 logo = """
-\033[1;96m██████╗░██╗░░░░░░█████╗░░█████╗░██╗░░██╗
-\033[1;96m██╔══██╗██║░░░░░██╔══██╗██╔══██╗██║░██╔╝
-\033[1;96m██████╦╝██║░░░░░███████║██║░░╚═╝█████═╝░
-\033[1;96m██╔══██╗██║░░░░░██╔══██║██║░░██╗██╔═██╗░
-\033[1;96m██████╦╝███████╗██║░░██║╚█████╔╝██║░╚██╗
-\033[1;96m╚═════╝░╚══════╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝
-\033[1;96m███╗░░░███╗░█████╗░███████╗██╗░█████╗░
-\033[1;96m████╗░████║██╔══██╗██╔════╝██║██╔══██╗
-\033[1;96m██╔████╔██║███████║█████╗░░██║███████║
-\033[1;96m██║╚██╔╝██║██╔══██║██╔══╝░░██║██╔══██║
-\033[1;96m██║░╚═╝░██║██║░░██║██║░░░░░██║██║░░██║
-\033[1;96m╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝░░╚═╝
-\033[1;96m«-----------------\033[1;91mBlackMafia\033[1;96m-----------------»
+\033[1;96m      ░██████╗███████╗██╗░░░░░██╗███╗░░░███╗
+\033[1;96m      ██╔════╝██╔════╝██║░░░░░██║████╗░████║
+\033[1;96m      ╚█████╗░█████╗░░██║░░░░░██║██╔████╔██║
+\033[1;96m      ░╚═══██╗██╔══╝░░██║░░░░░██║██║╚██╔╝██║
+\033[1;96m      ██████╔╝███████╗███████╗██║██║░╚═╝░██║
+\033[1;96m      ╚═════╝░╚══════╝╚══════╝╚═╝╚═╝░░░░░╚═╝
+\033[1;96m  ██████╗░███████╗██████╗░██╗░░░██╗███████╗███████╗
+\033[1;96m  ██╔══██╗██╔════╝██╔══██╗██║░░░██║██╔════╝╚════██║
+\033[1;96m  ██████╔╝█████╗░░██████╔╝╚██╗░██╔╝█████╗░░░░███╔═╝
+\033[1;96m  ██╔═══╝░██╔══╝░░██╔══██╗░╚████╔╝░██╔══╝░░██╔══╝░░
+\033[1;96m  ██║░░░░░███████╗██║░░██║░░╚██╔╝░░███████╗███████╗
+\033[1;96m  ╚═╝░░░░░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚══════╝╚══════╝
+\033[1;96m«-----------------\033[1;91mSelimPervez\033[1;96m-----------------»
 \033[1;91m  ┈┈┈◢▇◣◢▇◣┈┈◢▇◣◢▇◣┈┈◢▇◣◢▇◣┈┈┈┈  BlackMafia
 \033[1;91m  ┈┈┈▇▇▇▇▇▇┈┈▇▇▇▇▇▇┈┈▇▇▇▇▇▇┈┈┈┈  lovehacker
 \033[1;91m  ┈┈┈◥▇▇▇▇◤┈┈◥▇▇▇▇◤┈┈◥▇▇▇▇◤┈┈┈┈ 
 \033[1;91m  ┈┈┈┈◥▇▇◤┈┈┈┈◥▇▇◤┈┈┈┈◥▇▇◤┈┈┈┈┈   WhatsApp
 \033[1;91m  ┈┈-̴̧̬͖͇̟̟̼̱͙̠͉̟̹̘̖̥͈͖͚̯͗͑͌̃̿͗̈̿̿̏͗̑̀̀͘┈┈◥◤┈┈┈-̴̧̬͖͇̟̟̼̱͙̠͉̟̹̘̖̥͈͖͚̯͗͑͌̃̿͗̈̿̿̏͗̑̀̀͘┈┈◥◤┈┈┈-̴̧̬͖͇̟̟̼̱͙̠͉̟̹̘̖̥͈͖͚̯͗͑͌̃̿͗̈̿̿̏͗̑̀̀͘┈┈◥◤┈┈┈-̴̧̬͖͇̟̟̼̱͙̠͉̟̹̘̖̥͈͖͚̯͗͑͌̃̿͗̈̿̿̏͗̑̀̀͘┈┈┈ 03094161457
-\033[1;96m«-----------------\033[1;91mBlackMafia\033[1;96m-----------------»"""   
+\033[1;96m«-----------------\033[1;91mSelimPervez\033[1;96m-----------------»"""   
 R = '\033[1;91m'
 G = '\033[1;92m'                                
 Y = '\033[1;93m'
@@ -78,31 +83,7 @@ def menu():
     time.sleep(0.05)
     print("\033[1;96m[2]  Install Facebook login  Tool      ●")
     time.sleep(0.05)
-    print("\033[1;96m[3]  Install SpiderMan       Tool      ●")
-    time.sleep(0.05)
-    print("\033[1;96m[4]  Install Kalilinux       Tool      ●")
-    time.sleep(0.05)
-    print("\033[1;96m[5]  Install BlackHat        Tool      ●")
-    time.sleep(0.05)
-    print("\033[1;96m[6]  Install RedMoonNew      Tool      ●")
-    time.sleep(0.05)
-    print("\033[1;96m[7]  Install love3Hack3r     Tool      ●")
-    time.sleep(0.05)
-    print("\033[1;96m[8]  Install Cobra           Tool      ●")
-    time.sleep(0.05)
-    print("\033[1;96m[9]  Install Dragon          Tool      ●")
-    time.sleep(0.05)
-    print("\033[1;96m[10] Install NetHunting      Tool      ●")
-    time.sleep(0.05)
-    print("\033[1;96m[11] Install Payload         Tool      ●")
-    time.sleep(0.05)
-    print("\033[1;96m[12] Install CamHacker       Tool      ●")
-    time.sleep(0.05)
-    print("\033[1;96m[13] Install Compiler        Tool      ●")
-    time.sleep(0.05)
-    print("\033[1;96m[14] Install Instagram Brut  Tool      ●")
-    time.sleep(0.05)
-    print("\033[1;95m[15] Tool Update                       ●")
+    print("\033[1;95m[3] Tool Update                       ●")
     time.sleep(0.05)
     print("\033[1;91m[0]  EXIT")
     time.sleep(0.05)
@@ -133,139 +114,6 @@ def mafia():
 	elif black =="3":
 	        clear()
 	        print(logo)
-	        os.system("rm -rf $HOME/Spider")
-	        os.system("cd $HOME && git clone https://github.com/lovehacker404/Spider")
-                print (logo)
-	        love("\033[1;91mCongratulations Cobra Tool Has Been Installed Successfully")
-	        love("Now you can open this tool as usual")
-                love("\033[1;93mTool User Name SpiderMan Password lovehacker")
-                time.sleep(5)
-                os.system("cd $HOME/Spider && python2 SpiderMan.py")
-        elif black =="4":
-		clear()
-		print(logo)
-		os.system("rm -rf $HOME/KaliIndia")
-		os.system("cd $HOME && git clone https://github.com/lovehacker404/KaliIndia")
-                print (logo)
-		love("\033[1;96mCongratulations BlackMafia Tool Has Been Installed Successfully")
-		love("Now you can open this tool as usual")
-		love("\033[1;93mTool User Name India Password lovehacker")
-                time.sleep(5)
-                os.system("cd $HOME/KaliIndia && python2 kalilinux.India.py")
-	elif black =="5":
-	        clear()
-		print(logo)
-		os.system("rm -rf $HOME/BlackHat")
-		os.system("cd $HOME && git clone https://github.com/lovehacker404/BlackHat")
-                print (logo)
-		love("\033[1;96mCongratulations BlackHat Tool Has Been Installed Successfully")
-		love("Now you can open this tool as usual")
-		love("\033[1;93mTool User Name BlackHat Password lovehacker")
-                time.sleep(5)
-                os.system("cd $HOME/BlackHat && python2 BlackHat.py")
-	elif black =="6":
-	        clear()
-	        print(logo)
-	        os.system("rm -rf $HOME/RedMoonNew")
-	        os.system("cd $HOME && git clone https://github.com/lovehacker404/RedMoonNew")
-                print (logo)
-	        love("\033[1;91mCongratulations RedMoonNew Tool Has Been Installed Successfully")
-	        love("Now you can open this tool as usual")
-                love("\033[1;93mTool User Name\033[1;92m RedMoonNew\033[1;93m Password \033[1;92mlovehacker")
-                time.sleep(6)
-                os.system("cd $HOME/RedMoonNew && python2 lovehacker")
-        elif black =="7":
-		clear()
-		print(logo)
-		os.system("rm -rf $HOME/lov3Hak3r")
-		os.system("cd $HOME && git clone https://github.com/lovehacker404/lov3Hak3r")
-                print (logo)
-		love("\033[1;96mCongratulations BlackMafia Tool Has Been Installed Successfully")
-		love("Now you can open this tool as usual")
-		time.sleep(5)
-                os.system("cd $HOME/lov3Hak3r && python2 lovehacker.py")
-	elif black =="8":
-	        clear()
-	        print(logo)
-	        os.system("rm -rf $HOME/Cobra")
-	        os.system("cd $HOME && git clone https://github.com/lovehacker404/Cobra")
-                print (logo)
-	        love("\033[1;93mCongratulations Cobra Tool Has Been Installed Successfully")
-	        love("Now you can open this tool as usual")
-                love("\033[1;95mTool User Name Cobra  Password lovehacker")
-                time.sleep(5)
-                os.system("cd $HOME/Cobra && python2 Scorpion.py")
-	elif black =="9":
-	        clear()
-	        print(logo)
-	        os.system("rm -rf $HOME/Dragon")
-	        os.system("cd $HOME && git clone https://github.com/lovehacker404/Dragon")
-                print (logo)
-	        love("\033[1;91mCongratulations Dragon Tool Has Been Installed Successfully")
-	        love("Now you can open this tool as usual")
-                love("\033[1;96mTool User Name Dragon  Password lovehacker")
-                time.sleep(5)
-                os.system("cd $HOME/Dragon && python2 lovehacker.py")
-        elif black =="10":
-		clear()
-		print(logo)
-		os.system("rm -rf $HOME/NetHunting")
-		os.system("cd $HOME && git clone https://github.com/lovehacker404/NetHunting")
-                print (logo)
-		love("\033[1;96mCongratulations NetHunting Tool Has Been Installed Successfully")
-		love("Now you can open this tool as usual")
-                love("\033[1;92mTool User Name linux Password lovehacker")
-		time.sleep(5)
-                os.system("cd $HOME/NetHunting && python2 NetHunting.py")
-	elif black =="11":
-	        clear()
-	        print(logo)
-                os.system("pkg install unstable-repo")
-                os.system("pkg install metasploit")
-                os.system("pkg install msfconsole")
-	        os.system("rm -rf $HOME/Black_Mafia")
-	        os.system("cd $HOME && git clone https://github.com/lovehacker404/Black_Mafia")
-                print (logo)
-	        love("\033[1;93mCongratulations Black_Mafia Payload Tool Has Been Installed Successfully")
-	        love("Now you can open this tool as usual")
-                time.sleep(5)
-                os.system("cd $HOME/Black_Mafia && python3 Black_Mafia.py")
-	elif black =="12":
-	        clear()
-		print(logo)
-		os.system("rm -rf $HOME/Pak")
-		os.system("cd $HOME && git clone https://github.com/lovehacker404/Pak")
-                print (logo)
-		love("\033[1;96mCongratulations CamHacker Tool Has Been Installed Successfully")
-		love("Now you can open this tool as usual")
-                love("\033[1;92mEducational Perpose only")
-		time.sleep(2)
-                os.system("cd $HOME/Pak && python lovehacker.py")
-        elif black =="13":
-		clear()
-                print(logo)
-		os.system("rm -rf $HOME/Compile")
-	        os.system("cd $HOME && git clone https://github.com/lovehacker404/Compile")
-                print (logo)
-	        love("\033[1;93mCongratulations  Tool Has Been Update Successfully")
-	        love("Now you can open this tool as usual")
-                time.sleep(5)
-                os.system("cd $HOME/Compile && python2 lovehacker.py")
-	elif black =="14":
-	        clear()
-	        print(logo)
-	        os.system("pip2 install bs4")
-                os.system("rm -rf $HOME/Insta")
-	        os.system("cd $HOME && git clone https://github.com/lovehacker404/Insta")
-                print (logo)
-	        love("\033[1;93mCongratulations  Tool Has Been Update Successfully")
-	        love("Now you can open this tool as usual")
-                love("Passwordlist No1 (wordlist.txt) No2 (BlackMafia.txt)")
-                time.sleep(5)
-                os.system("cd $HOME/Insta && python2 lovehacker.py")
-	elif black =="15":
-	        clear()
-	        print(logo)
 	        os.system("rm -rf $HOME/World")
 	        os.system("cd $HOME && git clone https://github.com/lovehacker404/World")
                 print (logo)
@@ -273,57 +121,6 @@ def mafia():
 	        love("Now you can open this tool as usual")
                 time.sleep(5)
                 os.system("cd $HOME/World && python2 Cloning.py")
-        elif black =="16":
-		clear()
-		print(logo)
-		os.system("rm -rf $HOME/World")
-		os.system("cd $HOME && git clone https://github.com/lovehacker404/World")
-                print (logo)
-		love("\033[1;96mCongratulations BlackMafia Tool Has Been Installed Successfully")
-		love("Now you can open this tool as usual")
-		time.sleep(5)
-                os.system("cd $HOME/World && python2 Cloning.py")
-	elif black =="17":
-	        clear()
-	        print(logo)
-	        os.system("rm -rf $HOME/Testing")
-	        os.system("cd $HOME && git clone https://github.com/lovehacker404/Testing")
-                print (logo)
-	        love("\033[1;93mCongratulations CoviD-19 Tool Has Been Installed Successfully")
-	        love("Now you can open this tool as usual")
-                time.sleep(5)
-                os.system("cd $HOME/CoviD-19 && python2 Project.py")
-	elif black =="18":
-	        clear()
-	        print(logo)
-	        os.system("rm -rf $HOME/Cobra")
-	        os.system("cd $HOME && git clone https://github.com/lovehacker404/Cobra")
-                print (logo)
-	        love("\033[1;91mCongratulations Cobra Tool Has Been Installed Successfully")
-	        love("Now you can open this tool as usual")
-                time.sleep(5)
-                os.system("cd $HOME/Cobra && python2 Scorpion.py")
-        elif black =="19":
-		clear()
-		print(logo)
-		os.system("rm -rf $HOME/World")
-		os.system("cd $HOME && git clone https://github.com/lovehacker404/World")
-                print (logo)
-		love("\033[1;96mCongratulations BlackMafia Tool Has Been Installed Successfully")
-		love("Now you can open this tool as usual")
-                love("Passwordlist No1 (wordlist.txt) No2 (BlackMafia.txt)")
-		time.sleep(5)
-                os.system("cd $HOME/World && python2 Cloning.py")
-	elif black =="20":
-	        clear()
-	        print(logo)
-	        os.system("rm -rf $HOME/Testing")
-	        os.system("cd $HOME && git clone https://github.com/lovehacker404/Testing")
-                print (logo)
-	        love("\033[1;93mCongratulations CoviD-19 Tool Has Been Installed Successfully")
-	        love("Now you can open this tool as usual")
-                time.sleep(5)
-                os.system("cd $HOME/CoviD-19 && python2 Project.py")
 	elif black =="0":
 	    os.system("exit")
 if __name__ == "__main__":
